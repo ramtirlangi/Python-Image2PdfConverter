@@ -5,13 +5,11 @@ from PyPDF2 import PdfFileMerger
 import argparse
 
 # Argument parser
-#ap = argparse.ArgumentParser()
-#ap.add_argument("-i", "--inputFilePath", required=True, help="path to Itext Redacted input image")
-#args = vars(ap.parse_args())
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--inputFilePath", required=True, help="path to Itext Redacted input image")
+args = vars(ap.parse_args())
 
-#PDF_PATH = args["inputFilePath"]
-PDF_PATH = "D:\\test\\RamTirlagi_Resume.pdf"
-
+PDF_PATH = args["inputFilePath"]
 
 def pdftopil():
     pil_images = pdf2image.convert_from_bytes(open(PDF_PATH, "rb").read(), dpi=300, output_folder=None, first_page=None, last_page=None, fmt="pdf", jpegopt=None,
@@ -29,11 +27,12 @@ def save_images(pil_images):
     source_dir = os.getcwd()
     merger = PdfFileMerger()
     splittedInvoices = os.listdir(source_dir)
+    splittedInvoices.sort(key = len)
     for item in splittedInvoices:
             if item.endswith('pdf'):
                 merger.append(item)
-                merger.write(args["inputFilePath"])
-                merger.close()
+    merger.write(args["inputFilePath"])
+    merger.close()
     splittedInvoices.clear()
     splittedInvoicesremove = os.listdir(source_dir)
     for item in splittedInvoicesremove:
@@ -50,4 +49,3 @@ if __name__ == "__main__":
         print("code executed")
     except:
         print("Something went wrong when writing to the file")
-
