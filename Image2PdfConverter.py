@@ -39,7 +39,7 @@ def save_images(pil_images):
         if item.endswith('pdf'):
             os.remove(item);
 
-
+# Main function
 if __name__ == "__main__":
     try:
 	# Flatening of pages in PDF document
